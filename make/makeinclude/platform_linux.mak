@@ -75,8 +75,10 @@ INCLDIRS +=$(USER_INCLDIRS)\
 -I/opt/staros.xyz/dipc/include/curl\
 -I/opt/staros.xyz/dipc/include/sjs\
 -I/opt/staros.xyz/dipc/include/python\
--I/opt/staros.xyz/bxjstack/include\
--I/opt/staros.xyz/bxjstack/include/vswitch
+-I/opt/staros.xyz/rte/include\
+-I/opt/staros.xyz/dpdk/include\
+-I/opt/staros.xyz/vos/include\
+
 
 DLLSINCLUDE +=
 
@@ -84,8 +86,13 @@ DLLSINCLUDE +=
 
 USER_LINK_FLAGS +=\
 -L/opt/staros.xyz/dipc/dlls\
--L/opt/staros.xyz/bxjstack/libs
+-L/opt/staros.xyz/dpdk/libs/\
+-L/opt/staros.xyz/vos/libs\
+-L/opt/staros.xyz/voskern-fwd/libs
 ASFLAGS +=
+
+INCLDIRS += -I/opt/staros.xyz/vos/include/dpdkwrapper-fwd\
+-I/opt/staros.xyz/voskern-fwd/include
 
 ##-I/opt/staros.xyz/fstack/include			
 DEFFLAGS += $(USER_DEFFLAGS) 
@@ -100,6 +107,11 @@ DEFFLAGS += $(USER_DEFFLAGS)
 
 
 DLLPLATEX +=\
+-ldpdkwrapper-fwd\
+-lvoskern\
+-lvosports\
+-lvossctp\
+-lfstackutils\
 -lfshmipc\
 -lipstack\
 -lipstacktp\
@@ -114,7 +126,6 @@ DLLPLATEX +=\
 -lutilsex
 
 DLLSINCLUDE +=\
--lbxjstack\
 -ldipcstarlang\
 -ldipcclient\
 -ldipc\
@@ -148,6 +159,15 @@ $(DLLPLATEX)\
 -lACE\
 -ljson\
 -lcjson
+
+ifeq ($(static),0)
+DLLSINCLUDE+= $(shell $(PKGCONF) --static --libs libdpdk_shared)
+DLLSINCLUDE+= $(shell $(PKGCONF) --static --libs librte_shared)
+else
+
+DLLSINCLUDE+= $(shell $(PKGCONF) --static --libs libdpdk_static)
+DLLSINCLUDE+= $(shell $(PKGCONF) --static --libs librte_static)
+endif
 
 DLLSINCLUDE +=-lzlib\
 -lopenssl\

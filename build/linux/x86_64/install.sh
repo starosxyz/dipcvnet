@@ -1,5 +1,5 @@
 #!/bin/bash
-lines=39
+lines=41
 more <<"EOF"
 platform will install add /opt/staros.xyz/dipcvnet location.
 EOF
@@ -30,6 +30,8 @@ mkdir -p /opt/staros.xyz/dipcvnet
 mkdir -p /opt/staros.xyz/dipcvnet/logs/mp/{s1,s2,s3}
 mkdir -p /opt/staros.xyz/conf/conf_star5gcore_package
 /bin/cp -rf tmp/* /opt/staros.xyz/dipcvnet/
+/bin/cp /opt/staros.xyz/dipcvnet/bin/x86_dipcvnet /usr/local/bin/
+chmod a+x /usr/local/bin/x86_dipcvnet
 
 systemctl daemon-reload
 rm -rf /tmp/tmp.tar.gz

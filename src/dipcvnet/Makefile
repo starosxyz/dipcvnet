@@ -1,20 +1,47 @@
+
 include $(USER_DEPTH)/make/makeinclude/mk_pre.mak
-USER_BIN = dipcvnet
+
+USER_LIB = dipcvnet
+
 USER_SRCS_CPP= \
-CDIPCVNetConfig.cpp\
-CDIPCVNetProcess.cpp\
-dipcvnet.cpp
+mppp/CDIPCVnetMPPPManager.cpp\
+mppp/CDIPCVnetMPPPSession.cpp\
+mppp/CDIPCVnetMPPPTapLocal.cpp\
+ppp/CDIPCVnetPPPManager.cpp\
+ppp/CDIPCVnetPPPSession.cpp\
+vos/CDIPCVnetVOSSession.cpp\
+vos/CDIPCVnetVOSManager.cpp\
+vos/CDIPCVnetVOSPortLocal.cpp\
+vos/CDIPCVnetVOSPortExt.cpp\
+vswitch/CDIPCVnetSwitchManager.cpp\
+vswitch/CDIPCVnetSwitchPortLocal.cpp\
+vswitch/CDIPCVnetSwitchSession.cpp\
+CDIPCVnetManager.cpp\
+CDIPCVnetSessionManager.cpp\
+CDIPCVnetTap.cpp\
+CDIPCVnetSession.cpp\
+CVNetDataChannel.cpp\
+CDIPCVOSPort.cpp
+
 USER_INCLDIRS =\
 -I$(USER_DEPTH)/src/\
--I$(USER_DEPTH)/src/vnet/\
--I$(USER_DEPTH)/src/dipcvnet
+-I$(USER_DEPTH)/src/main/\
+-I$(USER_DEPTH)/src/dipcvnet/\
+-I$(USER_DEPTH)/src/include/\
+-I$(USER_DEPTH)/src/dipcvos/\
+-I$(USER_DEPTH)/src/utils\
+-I$(USER_DEPTH)/src/vswitch
 
-USER_DEFFLAGS =-DWEBRTC_POSIX -DWEBRTC_LINUX -DUSE_DIPC
+USER_DEFFLAGS =
 USER_LINK_LIBS =
-USER_LINK_DLLS =\
--lvnet
+USER_LINK_DLLS =
+USER_LINK_FLAGS=
 
-USER_LINK_FLAGS= -L$(USER_DEPTH)/target\
--L/opt/staros.xyz/dipc/dlls
+
+
 USER_OBJ_DIR=$(TARGET_PATH)/src/dipcvnet
+
 include $(USER_DEPTH)/make/makeinclude/mk_post.mak
+
+
+

@@ -28,6 +28,8 @@ all: check_dir $(buidlall)
 	echo $(buidlall)
 	cp -rf $(ROOTDIR)/starlang/* $(STARDLLBUILD)/starlang/
 	cp -rf $(ROOTDIR)/conf/* $(STARDLLBUILD)/conf/
+	cp -rf /opt/staros.xyz/vos/libs/* $(STARDLLBUILD)/libs/
+	test -d /opt/staros.xyz/rte/libs/ && cp -rf /opt/staros.xyz/rte/libs/*.so $(STARDLLBUILD)/libs/
 	mv $(TARNAME) tmp
 	tar zcvf $(TARNAME).tar.gz -C $(ROOTDIR)/build/linux/x86_64/ tmp
 	cat $(INSTALLNAME) $(TARNAME).tar.gz > $(TARNAME).bin 
@@ -38,6 +40,7 @@ all: check_dir $(buidlall)
 star5gcore:check_dir
 	make -C $(STAR5GCORE_ROOT)
 	cp -Lf $(ROOTDIR)/bin/* $(STARDLLBUILD)/bin/
+	cp -rf /opt/staros.xyz/vos/bin/* $(STARDLLBUILD)/bin/fstackbin/
 ifeq (0,$(static))
 	cp -Lf $(ROOTDIR)/target/*.so $(STARDLLBUILD)/libs/
 else
